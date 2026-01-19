@@ -1,0 +1,34 @@
+http://localhost:7788/api/create
+{
+
+    "name" :"dragan",
+     "quantity" :71,
+     "price" :120.4
+
+}
+
+=========
+http://localhost:7788/api/shows
+
+[
+    {
+        "id": 1,
+        "name": "ivan",
+        "quantity": 81,
+        "price": 100.5
+    },
+    {
+        "id": 2,
+        "name": "goran",
+        "quantity": 91,
+        "price": 110.5
+    },
+    {
+        "id": 3,
+        "name": "dragan",
+        "quantity": 71,
+        "price": 120.4
+    }
+]
+
+==============
