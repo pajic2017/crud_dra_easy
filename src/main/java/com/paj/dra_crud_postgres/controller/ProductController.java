@@ -17,7 +17,7 @@ public class ProductController {
 
     private static final java.util.logging.Logger log= Logger.getLogger(ProductController.class.getName());
 
-   @Autowired
+    @Autowired
     private ProductService service;
 
     @GetMapping("/start")
