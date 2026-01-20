@@ -40,6 +40,31 @@ public class ProductController {
    List<Product> showProducts(){
        log.info("All Products..... ");
        return service.showAllProducts();
-
    }
+
+   @GetMapping("/shows/{id}")
+   public Product showOneProduct(@PathVariable("id") int id) throws Exception {
+        log.info("Product with Id: "+id);
+        return service.lookOneProduct(id);
+   }
+
+   @DeleteMapping("/delete/{id}")
+   public void deleteProductData(@PathVariable("id") int id){
+        log.info("Deleting product: "+id);
+        service.deleteOneProduct(id);
+   }
+
+   @PutMapping("/update/{id}")
+   public Product updateExistingProduct(@PathVariable("id")int id, @RequestBody Product product){
+        log.info("Updating product with id: "+id);
+        return service.editProduct(id,product);
+   }
+
+   // do not working properly
+//   @GetMapping("showbyprice/{price}")
+//   public Product showOneProductByPrice(@PathVariable("price") double price){
+//        log.info("Product with price: "+price);
+//        return new Product();
+//
+//   }
 }
