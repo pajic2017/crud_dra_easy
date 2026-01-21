@@ -9,10 +9,11 @@ import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 class DraCrudPostgresApplicationTests {
@@ -59,5 +60,82 @@ class DraCrudPostgresApplicationTests {
         verify(service).makeNewProduct(reqProduct);
 
     }
+
+    @Test
+    void showProductsTest() {
+
+        ArrayList<Product> products=new ArrayList();
+        Product prod1=new Product();
+        Product prod2=new Product();
+        Product prod3=new Product();
+        products.add(prod1);
+        products.add(prod2);
+        products.add(prod3);
+
+        // use when and return tool from mockito
+        when(service.showAllProducts()).thenReturn(products);
+
+        // use inject class
+        List<Product> outputListController=productController.showProducts();
+
+        // assert that object exist
+        assertNotNull(outputListController);
+
+        // assert equals size of products
+        int actualSizeOfProducts=outputListController.size();
+        int expectedSizeOfProducts=3;
+
+        assertEquals(expectedSizeOfProducts, actualSizeOfProducts);
+
+
+        // verify that our method touch mock object
+        verify(service).showAllProducts();
+
+    }
+
+    // add more test here
+    @Test
+    void showOneProductTest() throws Exception {
+        Product savedProduct=new Product();
+        savedProduct.setId(100);
+
+        when(service.lookOneProduct(100)).thenReturn(savedProduct);
+
+        Product outputOnProductController=productController.showOneProduct(100);
+        assertNotNull(outputOnProductController);
+
+        int actualValueOfProduct=outputOnProductController.getId();
+        int expectedValueOfProduct=100;
+
+        assertEquals(expectedValueOfProduct,actualValueOfProduct);
+
+        verify(service).lookOneProduct(100);
+
+    }
+
+    // ???
+    @Test
+    void updateExistingProductSuccessfullyUpdatesProductTest() throws Exception {
+        Product existingProduct = new Product(1, "OldName", 10, 20.0);
+        Product updatedProduct = new Product(1, "NewName", 15, 25.0);
+
+        when(service.editProduct(1, updatedProduct)).thenReturn(updatedProduct);
+
+        Product result = productController.updateExistingProduct(1, updatedProduct);
+
+        assertNotNull(result);
+        assertEquals("NewName", result.getName());
+        assertEquals(15, result.getQuantity());
+        assertEquals(25.0, result.getPrice());
+
+        verify(service).editProduct(1, updatedProduct);
+    }
+
+    @Test
+    void deleteProductDataTest() throws Exception {
+        doNothing().when(service).deleteOneProduct(100);
+    }
+
+
 
 }

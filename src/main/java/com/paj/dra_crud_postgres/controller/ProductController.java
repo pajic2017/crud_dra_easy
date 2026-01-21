@@ -37,7 +37,7 @@ public class ProductController {
 
     // http://localhost:7788/api/shows
    @GetMapping("/shows")
-   List<Product> showProducts(){
+   public List<Product> showProducts(){
        log.info("All Products..... ");
        return service.showAllProducts();
    }
@@ -49,13 +49,13 @@ public class ProductController {
    }
 
    @DeleteMapping("/delete/{id}")
-   public void deleteProductData(@PathVariable("id") int id){
+   public void deleteProductData(@PathVariable("id") int id) throws Exception {
         log.info("Deleting product: "+id);
         service.deleteOneProduct(id);
    }
 
    @PutMapping("/update/{id}")
-   public Product updateExistingProduct(@PathVariable("id")int id, @RequestBody Product product){
+   public Product updateExistingProduct(@PathVariable("id")int id, @RequestBody Product product) throws Exception {
         log.info("Updating product with id: "+id);
         return service.editProduct(id,product);
    }

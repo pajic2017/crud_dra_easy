@@ -10,9 +10,9 @@ public interface ProductService {
     List<Product> showAllProducts();
 
     Product lookOneProduct(int id) throws Exception;
-    void deleteOneProduct(int id);
+    void deleteOneProduct(int id) throws Exception;
 
-    Product editProduct(int id, Product product);
+    Product editProduct(int id, Product product) throws Exception;
 
     Product lookUsingPrice(double price);
 }
